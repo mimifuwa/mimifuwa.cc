@@ -1,0 +1,31 @@
+{
+  "name": "bun-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome lint <files>",
+    "format": "biome format <files>",
+    "check": "biome check <files>",
+    "lint:fix": "biome lint --apply <files>",
+    "format:fix": "biome format <files> --write",
+    "check:fix": "biome check --apply <files>"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "lefthook": "^1.7.18",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}

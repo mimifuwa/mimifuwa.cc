@@ -1,0 +1,4 @@
+bun = "latest"
+
+[settings]
+auto-install = true
