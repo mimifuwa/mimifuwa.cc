@@ -1,15 +1,11 @@
 .header {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+
+  width: 100%;
 
   height: 4rem;
   container-type: size;
-
-  padding: 0 0.5rem;
-
-  /* box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2); */
 
   border-bottom: 1px solid var(--color-slate-300);
   font-family: var(--font-patua-one);
@@ -19,6 +15,24 @@
     flex-direction: column;
 
     gap: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 1280px;
+    padding: 0 1rem;
+
+    margin: 0 auto;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 }
 

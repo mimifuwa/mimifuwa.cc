@@ -32,26 +32,28 @@ export const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={clsx(styles.logo)}>
-        mimifuwa<span>.cc</span>
-      </Link>
-      <nav>
-        <ul className={styles.nav}>
-          {HeaderNavList.map(({ name, href }) => (
-            <li key={name}>
-              <Link
-                href={href}
-                className={clsx(
-                  styles.navItem,
-                  pathName === href ? styles.active : null
-                )}
-              >
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className={styles.container}>
+        <Link href="/" className={clsx(styles.logo)}>
+          mimifuwa<span>.cc</span>
+        </Link>
+        <nav>
+          <ul className={styles.nav}>
+            {HeaderNavList.map(({ name, href }) => (
+              <li key={name}>
+                <Link
+                  href={href}
+                  className={clsx(
+                    styles.navItem,
+                    pathName === href ? styles.active : null
+                  )}
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 };
