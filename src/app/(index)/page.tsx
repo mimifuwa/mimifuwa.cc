@@ -25,7 +25,7 @@ export default function Home() {
           技術を触ったり、オタク（アニメ・音楽）していたり、徒歩をしたりしています。
         </p>
         <p>
-          記事一覧 ▶ <Link href="/portfolio">Blog</Link>
+          記事一覧 ▶ <Link href="/blog">Blog</Link>
         </p>
       </section>
       <section className={styles.section}>
