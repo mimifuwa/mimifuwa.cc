@@ -7,11 +7,11 @@ commit-msg:
 pre-commit:
   commands:
     check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: bun biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true && git update-index --again
+      glob: "/src/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: bun biome check --write --no-errors-on-unmatched --files-ignore-unknown=true && git update-index --again
 
 pre-push:
   commands:
     check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      glob: "/src/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
       run: bun biome check --no-errors-on-unmatched --files-ignore-unknown=true
