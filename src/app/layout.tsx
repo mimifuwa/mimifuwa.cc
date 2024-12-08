@@ -4,19 +4,19 @@ import { Patua_One, Noto_Sans_JP } from "next/font/google";
 
 import clsx from "clsx";
 
-export const PatuaOne = Patua_One({
+const PatuaOne = Patua_One({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-patua-one",
 });
 
-export const NotoSansJP = Noto_Sans_JP({
+const NotoSansJP = Noto_Sans_JP({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-noto-sans-jp",
 });
 
-export const NotoSansJP600 = Noto_Sans_JP({
+const NotoSansJP600 = Noto_Sans_JP({
   weight: "600",
   subsets: ["latin"],
   variable: "--font-noto-sans-jp-bold",
