@@ -16,19 +16,13 @@ export default function Home() {
         <p>色々聴きます。アニソン多め。</p>
         <ul className={styles.list}>
           <li>
-            <Link href="https://www.kadokawa.co.jp/product/321909000804/">
-              nonoc
-            </Link>
+            <Link href="https://nonoc.bitfan.id/">nonoc</Link>
           </li>
           <li>
-            <Link href="https://www.kadokawa.co.jp/product/322403000379/">
-              安月名莉子
-            </Link>
+            <Link href="https://azuna-riko.com/">安月名莉子</Link>
           </li>
           <li>
-            <Link href="https://www.kadokawa.co.jp/product/322403000379/">
-              V.W.P
-            </Link>
+            <Link href="https://kamitsubaki.jp/artist/v-w-p/">V.W.P</Link>
           </li>
         </ul>
         <h3 className={styles.subsectionTitle}>Light Novel</h3>

@@ -1,0 +1,108 @@
+.cardList {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  padding: 1rem;
+
+  border: 1px solid var(--color-slate-300);
+  border-radius: 0.2rem;
+
+  text-decoration: none;
+
+  position: relative;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.2rem;
+  font-weight: bolder;
+
+  width: 100%;
+  text-align: left;
+  color: var(--color-slate-700);
+  font-family: var(--font-patua-one), var(--font-noto-sans-jp-bold);
+
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+
+  &::before {
+    display: flex;
+    margin-right: 0.5rem;
+    content: ">";
+    color: var(--color-slate-500);
+  }
+}
+
+.cover {
+  display: flex;
+  width: calc(100% + 2rem);
+  margin: -1rem -1rem 0;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+}
+
+.description {
+  font-size: 0.9rem;
+  font-weight: normal;
+
+  width: 100%;
+  text-align: left;
+  color: var(--color-slate-600);
+  line-height: 1.5;
+
+  margin-bottom: 0.5rem;
+
+  display: -webkit-box; /* 必須 */
+  -webkit-box-orient: vertical; /* 必須 */
+  -webkit-line-clamp: 3; /* 行数を制限 */
+  overflow: hidden; /* はみ出た部分を非表示 */
+}
+
+.date {
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: normal;
+
+  color: var(--color-slate-700);
+
+  margin-bottom: 0.5rem;
+
+  background-color: var(--color-slate-200);
+  width: fit-content;
+  padding: 0.25rem;
+  border-radius: 0.2rem;
+
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: normal;
+
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.2rem;
+
+    background-color: var(--color-slate-300);
+    color: var(--color-slate-700);
+  }
+}
