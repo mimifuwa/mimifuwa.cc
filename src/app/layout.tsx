@@ -34,6 +34,32 @@ export const metadata: Metadata = {
     default: appName,
   },
   description: "うさぎさんが生息しています",
+  openGraph: {
+    type: "website",
+    title: appName,
+    description: "うさぎさんが生息しています",
+    siteName: appName,
+    url: "https://mimifuwa.cc/",
+    images: {
+      url: "https://mimifuwa.cc/assets/ogp.png",
+      type: "image/png",
+      width: 1200,
+      height: 630,
+    },
+  },
+  twitter: {
+    type: "website",
+    title: appName,
+    description: "うさぎさんが生息しています",
+    siteName: appName,
+    url: "https://mimifuwa.cc/",
+    images: {
+      url: "https://mimifuwa.cc/assets/ogp.png",
+      type: "image/png",
+      width: 1200,
+      height: 630,
+    },
+  },
 };
 
 export const viewport: Viewport = {
