@@ -9,6 +9,8 @@ import Link from "next/link";
 
 import Image from "next/image";
 
+import clsx from "clsx";
+
 export default function Home() {
   const contentDirectory = path.join(process.cwd(), "src/content/blog");
 
@@ -55,7 +57,7 @@ export default function Home() {
   return (
     <>
       <section className={articleStyles.section}>
-        <h2 className={articleStyles.sectionTitle}>Blog</h2>
+        <h2 className={clsx(articleStyles.sectionTitle, articleStyles.topPage)}>Blog</h2>
         <p className={articleStyles.paragraph}>
           技術を触ったり、オタク（アニメ・音楽）していたり、徒歩をしたりしています。
         </p>

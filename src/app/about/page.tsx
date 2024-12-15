@@ -2,11 +2,14 @@ import styles from "@/styles/article.module.css";
 
 import Link from "next/link";
 
+import clsx from "clsx";
+
+
 export default function Home() {
   return (
     <>
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>About Me</h2>
+        <h2 className={clsx(styles.sectionTitle, styles.topPage)}>About Me</h2>
         <p>電気通信大学情報理工学域 I 類に在学</p>
         <p>専攻はコンピュータサイエンス</p>
       </section>
