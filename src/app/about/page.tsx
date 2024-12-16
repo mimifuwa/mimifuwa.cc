@@ -14,7 +14,7 @@ export default function Home() {
         <p>専攻はコンピュータサイエンス</p>
       </section>
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Hobby</h2>
+        <h2 className={clsx(styles.sectionTitle, styles.topPage)}>Hobby</h2>
         <h3 className={styles.subsectionTitle}>Music</h3>
         <p>色々聴きます。アニソン多め。</p>
         <ul className={styles.list}>
@@ -50,7 +50,9 @@ export default function Home() {
         </p>
       </section>
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Activities</h2>
+        <h2 className={clsx(styles.sectionTitle, styles.topPage)}>
+          Activities
+        </h2>
         <h3 className={styles.subsectionTitle}>team411</h3>
         <p>
           電気通信大学のベンチャー工房帰属のサークルのようなものです。いろんなアプリを作っていたり、鯖をいじっていたり、サービスを売り込む営業っぽいことをやっていたり。
