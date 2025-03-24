@@ -15,7 +15,15 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
-    ignores: ["node_modules/", "dist/", "build/", ".next/", "**/*.min.js", "*.yml"],
+    ignores: [
+      "node_modules/",
+      "dist/",
+      "build/",
+      ".next/",
+      "**/*.min.js",
+      "lefthook.yml",
+      "package-lock.yaml",
+    ],
   },
   {
     plugins: {
