@@ -15,27 +15,18 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
-    ignores: ["node_modules/", "dist/", "build/", ".next/", "**/*.min.js"],
+    ignores: ["node_modules/", "dist/", "build/", ".next/", "**/*.min.js", "*.yml"],
   },
   {
     plugins: {
       import: importPlugin,
     },
     rules: {
-      "sort-imports": [
-        "error",
-        { ignoreCase: true, ignoreDeclarationSort: true },
-      ],
+      "sort-imports": ["error", { ignoreCase: true, ignoreDeclarationSort: true }],
       "import/order": [
         "error",
         {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            ["sibling", "parent"],
-            "object",
-          ],
+          groups: ["builtin", "external", "internal", ["sibling", "parent"], "object"],
           pathGroups: [
             {
               pattern: "react",
@@ -50,6 +41,7 @@ const eslintConfig = [
           },
         },
       ],
+      "react/display-name": ["error", { ignoreTranspilerName: false }],
     },
   },
 ];

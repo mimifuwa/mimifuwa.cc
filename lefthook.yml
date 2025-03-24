@@ -7,7 +7,7 @@ commit-msg:
 pre-commit:
   commands:
     fix:
-      run: eslint --fix {staged_files} && prettier --write {staged_files}
+      run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
       include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
 
     git-update:
@@ -16,5 +16,5 @@ pre-commit:
 pre-push:
   commands:
     fix:
-      run: eslint --fix {staged_files} && prettier --write {staged_files}
+      run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
       include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
