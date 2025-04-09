@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FaRegFileAlt, FaRegStar } from "react-icons/fa";
 
@@ -14,13 +13,12 @@ export default function Page() {
           <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1fr]">
             <Card emoji="🔍" title="About me">
               <div className="flex gap-6 items-start sm:items-center flex-col sm:flex-row">
-                <Image
+                <img
                   src="/icon.png"
                   alt="mimifuwa"
                   className="mx-auto sm:mx-2 w-32 h-32 p-1 border-3 border-slate-700 rounded-full hover:scale-105 transition-transform cursor-pointer duration-300"
                   width={128}
                   height={128}
-                  priority
                 />
                 <div>
                   <table>
@@ -63,7 +61,7 @@ export default function Page() {
                   href={`/blogs/${latestArticles.id}`}
                   className="flex flex-col sm:flex-row border-2 border-slate-700 overflow-hidden sm:items-center hover:shadow-sm transition-shadow relative"
                 >
-                  <Image
+                  <img
                     width={400}
                     height={200}
                     src={latestArticles.image}
@@ -109,7 +107,7 @@ export default function Page() {
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, index) => (
                   <div key={index} className="flex flex-col items-center">
-                    <Image
+                    <img
                       width={32}
                       height={32}
                       src={skill.image}
