@@ -8,6 +8,9 @@ pre-commit:
   commands:
     fix:
       run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
+      exclude:
+        - "*.png"
+        - "*.jpg"
       include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
 
     git-update:
@@ -17,4 +20,7 @@ pre-push:
   commands:
     fix:
       run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
+      exclude:
+        - "*.png"
+        - "*.jpg"
       include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
