@@ -7,10 +7,7 @@ commit-msg:
 pre-commit:
   commands:
     fix:
-      run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
-      exclude:
-        - "*.{png,jpg,svg}"
-      include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
+      run: pnpm run fix
 
     git-update:
       run: git update-index --again
@@ -18,7 +15,4 @@ pre-commit:
 pre-push:
   commands:
     fix:
-      run: pnpm eslint --fix {staged_files} && pnpm prettier --write {staged_files}
-      exclude:
-        - "*.{png,jpg,svg}"
-      include: "src/**/*.{js,ts,cjs,mjs,cts,mts,d.cts,d.mts,jsx,tsx,json,jsonc,md,d.ts}"
+      run: pnpm run fix

@@ -19,6 +19,8 @@ const eslintConfig = [
       "node_modules/",
       "dist/",
       "build/",
+      "out/",
+      "public/",
       ".next/",
       "**/*.min.js",
       "lefthook.yml",
@@ -50,6 +52,7 @@ const eslintConfig = [
         },
       ],
       "react/display-name": ["error", { ignoreTranspilerName: false }],
+      "@next/next/no-img-element": "off",
     },
   },
 ];
