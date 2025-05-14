@@ -1,22 +1,42 @@
 import Link from "next/link";
-import { FaRegFileAlt, FaRegStar } from "react-icons/fa";
+import { FaGithub, FaTwitter } from "react-icons/fa";
+import { SiZenn } from "react-icons/si";
 
 import Card from "@/components/card";
+import Frame from "@/components/frame";
 
-import { activities, latestArticles, skills, sns, works } from "./data";
+import { GithubContributions } from "./_components/contributions";
+import { ZennArticle, ZennArticleList } from "./_components/zenn-articles";
+import { activities, skills, works } from "./data";
 
-export default function Page() {
+async function getZennArticles(): Promise<ZennArticle[]> {
+  const res = await fetch("https://zenn.dev/api/articles?username=mimifuwa&order=latest");
+
+  if (!res.ok) {
+    // エラーハンドリングを忘れずに
+    console.error("Failed to fetch Zenn articles");
+    return [];
+  }
+
+  const data = await res.json();
+
+  return data.articles;
+}
+
+export default async function Page() {
+  const zennArticles = await getZennArticles();
+
   return (
     <>
-      <div className="px-4 my-4 max-w-7xl mx-auto">
+      <div className="px-4 my-4 max-w-7xl mx-auto font-normal">
         <div className="flex flex-col gap-y-4">
-          <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1fr_1fr]">
-            <Card emoji="🔍" title="About me">
-              <div className="flex gap-6 items-start sm:items-center flex-col sm:flex-row">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+            <Frame emoji="🔍" title="About me">
+              <div className="flex gap-6 items-start sm:items-center flex-col sm:flex-row w-full">
                 <img
                   src="/icon.png"
                   alt="mimifuwa"
-                  className="mx-auto sm:mx-2 w-32 h-32 p-1 border-3 border-slate-700 rounded-full hover:scale-105 transition-transform cursor-pointer duration-300"
+                  className="mx-auto sm:mx-2 w-32 h-32 aspect-square p-1 border-3 border-slate-700 rounded-full hover:scale-105 transition-transform cursor-pointer duration-300"
                   width={128}
                   height={128}
                 />
@@ -41,103 +61,119 @@ export default function Page() {
                     </tbody>
                   </table>
                   <div className="flex gap-2 mt-4">
-                    {sns.map((sn, index) => (
-                      <Link
+                    <Link
+                      href="https://github.com/mimifuwa"
+                      className="flex items-center p-2 border-2 border-slate-700 gap-2 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+                    >
+                      <div className="text-xl">
+                        <FaGithub />
+                      </div>
+                      <div className="text-xs">GitHub</div>
+                    </Link>
+                    <Link
+                      href="https://twitter.com/mimifuwa_dev"
+                      className="flex items-center p-2 border-2 border-slate-700 gap-2 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+                    >
+                      <div className="text-xl">
+                        <FaTwitter />
+                      </div>
+                      <div className="text-xs">Twitter</div>
+                    </Link>
+                    <Link
+                      href="https://zenn.dev/mimifuwa"
+                      className="flex items-center p-2 border-2 border-slate-700 gap-2 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+                    >
+                      <div className="text-xl">
+                        <SiZenn />
+                      </div>
+                      <div className="text-xs">Zenn</div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </Frame>
+            <Frame emoji="📈" title="Recent Activities">
+              <GithubContributions />
+            </Frame>
+          </div>
+          <div className="grid grid-cols-1 gap-y-4 gap-x-0 lg:gap-y-4 lg:gap-x-4 lg:grid-cols-[3fr_2fr]">
+            <Frame emoji="✏️" title="Skills">
+              <div className="grid gap-3 sm:grid-cols-3 h-full w-full">
+                <div className="flex flex-col items-start p-2 border-2 border-slate-700 h-full">
+                  <h3 className="text-md px-1 mb-3 font-bold font-heading text-slate-200 bg-slate-700 w-auto">
+                    Languages
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills.languages.map((skill, index) => (
+                      <div
                         key={index}
-                        href={sn.url}
-                        className="flex items-center p-2 border-2 border-slate-700  gap-2 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+                        className="flex flex-col items-center bg-slate-200 p-1.5 group relative"
                       >
-                        <div className="text-xl">{sn.icon}</div>
-                        <div className="text-xs">{sn.name}</div>
-                      </Link>
+                        <img
+                          width={24}
+                          height={24}
+                          src={skill.image}
+                          alt={skill.name}
+                          className="w-6 h-6"
+                        />
+                        <span className="absolute top-full mt-1 hidden group-hover:block bg-slate-400 text-xs px-2 py-1 rounded z-10 shadow-md before:content-[''] before:absolute before:bottom-full before:left-1/2 before:-translate-x-1/2 before:border-4 before:border-transparent before:border-b-slate-400">
+                          {skill.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col items-start p-2 border-2 border-slate-700 h-full">
+                  <h3 className="text-md px-1 mb-3 font-bold font-heading text-slate-200 bg-slate-700 w-auto">
+                    Frameworks
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills.frameworks.map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center bg-slate-200 group relative p-1.5"
+                      >
+                        <img
+                          width={24}
+                          height={24}
+                          src={skill.image}
+                          alt={skill.name}
+                          className="w-6 h-6"
+                        />
+                        <span className="absolute top-full mt-1 hidden group-hover:block bg-slate-400 text-xs px-2 py-1 rounded z-10 shadow-md before:content-[''] before:absolute before:bottom-full before:left-1/2 before:-translate-x-1/2 before:border-4 before:border-transparent before:border-b-slate-400">
+                          {skill.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col items-start p-2 border-2 border-slate-700 h-full">
+                  <h3 className="text-md px-1 mb-3 font-bold font-heading text-slate-200 bg-slate-700 w-auto">
+                    Tools
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills.tools.map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center bg-slate-200 group relative p-1.5"
+                      >
+                        <img
+                          width={24}
+                          height={24}
+                          src={skill.image}
+                          alt={skill.name}
+                          className="w-6 h-6"
+                        />
+                        <span className="absolute top-full mt-1 hidden group-hover:block bg-slate-400 text-xs px-2 py-1 rounded z-10 shadow-md before:content-[''] before:absolute before:bottom-full before:left-1/2 before:-translate-x-1/2 before:border-4 before:border-transparent before:border-b-slate-400">
+                          {skill.name}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
-            </Card>
-            <Card emoji="📝" title="Latest Article">
-              {latestArticles ? (
-                <Link
-                  href={`/blogs/${latestArticles.id}`}
-                  className="flex flex-col sm:flex-row border-2 border-slate-700 overflow-hidden sm:items-center hover:shadow-sm transition-shadow relative"
-                >
-                  <img
-                    width={400}
-                    height={200}
-                    src={latestArticles.image}
-                    alt={latestArticles.title}
-                    className="sm:h-32 aspect-[1.91] object-cover bg-slate-700"
-                  />
-                  <time className="text-xs px-2 py-0.5  text-slate-200 bg-slate-700 absolute top-2 left-2">
-                    {latestArticles.date}
-                  </time>
-                  <div className="flex flex-col p-4 gap-2 truncate">
-                    <h3 className="text-lg font-bold text-slate-700 truncate">
-                      {latestArticles.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 truncate">{latestArticles.description}</p>
-                    <ul className="flex gap-2">
-                      {latestArticles.tags.map((tag) => (
-                        <li
-                          key={tag}
-                          className="inline-block px-1.5 py-0.5 text-xs bg-slate-700 text-slate-200 "
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Link>
-              ) : (
-                <p>記事がありません</p>
-              )}
-
-              <Link
-                href="/blogs"
-                className="p-2 border-2 text-sm border-slate-700 items-center gap-2 inline-flex  mt-4 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
-              >
-                <FaRegFileAlt className="text-xl" />
-                記事一覧
-              </Link>
-            </Card>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_2fr] lg:grid-cols-[2fr_4fr_3fr]">
-            <Card emoji="✏️" title="Skills">
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex flex-col items-center">
-                    <img
-                      width={32}
-                      height={32}
-                      src={skill.image}
-                      alt={skill.name}
-                      className="w-8 h-8"
-                    />
-                  </div>
-                ))}
-              </div>
-            </Card>
-            <Card emoji="⭐" title="Works">
-              <div className="grid sm:grid-cols-[1fr_1fr_1fr] gap-2">
-                {works.map((work, index) => (
-                  <Link href={work.url} key={index} className="border-2 border-slate-700">
-                    <h3 className="text-sm font-bold text-slate-200 bg-slate-700 px-2 h-14 flex items-center">
-                      {work.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 p-2">{work.description}</p>
-                  </Link>
-                ))}
-              </div>
-              <Link
-                href="/works"
-                className="p-2 border-2 text-sm border-slate-700 items-center gap-2 inline-flex  mt-4 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
-              >
-                <FaRegStar className="text-xl" />
-                作品一覧
-              </Link>
-            </Card>
-            <Card emoji="🏅" title="Qualifications" className="sm:col-span-2 lg:col-span-1">
+            </Frame>
+            <Frame emoji="🏅" title="Qualifications" className="sm:col-span-2 lg:col-span-1">
               <ul>
                 <li>全珠連 珠算検定 参段</li>
                 <li>全珠連 暗算検定 準四段</li>
@@ -145,9 +181,9 @@ export default function Page() {
                 <li>ITパスポート (2020年度春)</li>
                 <li>応用情報技術者 (2024年度秋)</li>
               </ul>
-            </Card>
+            </Frame>
           </div>
-          <Card emoji="🚶‍♂️" title="Experience">
+          <Frame emoji="🚶‍♂️" title="Experience">
             <ol className="relative border-s-2 border-slate-700 ml-2">
               {activities.map((activity) => (
                 <li key={activity.title} className="mb-4 ms-4">
@@ -160,9 +196,36 @@ export default function Page() {
                 </li>
               ))}
             </ol>
-          </Card>
+          </Frame>
+          <Frame emoji="⭐" title="Works">
+            <div className="grid sm:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_1fr_1fr] gap-3">
+              {works.map((work, index) => (
+                <Card image={work.image} title={work.title} key={index} href={work.url}>
+                  <p className="text-slate-600">{work.description}</p>
+                </Card>
+              ))}
+            </div>
+
+            <Link
+              href="https://github.com/mimifuwa"
+              className="p-2 border-2 text-sm border-slate-700 items-center gap-2 inline-flex mt-4 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+            >
+              <FaGithub className="text-xl" />
+              GitHubを見る
+            </Link>
+          </Frame>
+          <Frame emoji="📝" title="Articles">
+            <ZennArticleList articles={zennArticles} />
+            <Link
+              href="https://zenn.dev/mimifuwa"
+              className="p-2 border-2 text-sm border-slate-700 items-center gap-2 inline-flex mt-4 hover:bg-slate-700 transition-colors duration-300 hover:text-slate-200"
+            >
+              <SiZenn className="text-xl" />
+              Zennの記事一覧を見る
+            </Link>
+          </Frame>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1fr]">
-            <Card emoji="📍" title="Activities">
+            <Frame emoji="📍" title="Activities">
               <h3 className="font-heading text-xl">電気通信大学</h3>
               <p>
                 23年度入学。コンピュータサイエンスプログラムにいます。実は中学生の頃から第一志望でした（なんで？）。
@@ -188,8 +251,8 @@ export default function Page() {
               <p>2年間居座ってます。特に何もやってません。</p>
               <h3 className="font-heading text-xl mt-4">バーチャルライブ研究会</h3>
               <p>最近入りました。公式サイト等技術関連のお仕事をしています。</p>
-            </Card>
-            <Card emoji="🎶" title="Hobby">
+            </Frame>
+            <Frame emoji="🎶" title="Hobby">
               <h3 className="font-heading text-xl">Otaku</h3>
               <p>観測者ヰ組。少女革命計画を追い始めるなどしています。</p>
               <h3 className="font-heading text-xl mt-4">Music</h3>
@@ -225,7 +288,7 @@ export default function Page() {
                   </a>
                 </li>
               </ul>
-            </Card>
+            </Frame>
           </div>
         </div>
       </div>

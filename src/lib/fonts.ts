@@ -1,21 +1,9 @@
-import {
-  Kaisei_Opti,
-  Noto_Sans_JP,
-  Patua_One,
-  Source_Code_Pro,
-  UnifrakturMaguntia,
-} from "next/font/google";
+import { Kaisei_Opti, Patua_One, Source_Code_Pro, UnifrakturMaguntia } from "next/font/google";
 
 const sourceCodePro = Source_Code_Pro({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-source-code-pro",
-});
-
-const notoSansJP = Noto_Sans_JP({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-noto-sans-jp",
 });
 
 const kaiseiOpti = Kaisei_Opti({
@@ -36,4 +24,4 @@ const patuaOne = Patua_One({
   variable: "--font-patua-one",
 });
 
-export const fonts = [sourceCodePro, notoSansJP, kaiseiOpti, unifrakturMaguntia, patuaOne];
+export const fonts = [sourceCodePro, kaiseiOpti, unifrakturMaguntia, patuaOne];
