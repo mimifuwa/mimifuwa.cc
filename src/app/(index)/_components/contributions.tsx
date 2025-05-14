@@ -116,7 +116,11 @@ export function GithubContributions() {
               </p>
               <div className="grid grid-cols-3 gap-3 items-center w-full">
                 <div className="flex flex-col items-center gap-2">
-                  <span className="text-5xl font-bold font-heading">{data.totalContributions}</span>
+                  <span className="text-5xl font-bold font-heading">
+                    {data.totalContributions > 1000
+                      ? `${Math.floor(data.totalContributions / 1000)}k`
+                      : data.totalContributions}
+                  </span>
                   <span className="text-xs sm:text-base text-center px-1">Total Contrib</span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
