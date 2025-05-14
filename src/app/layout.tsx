@@ -6,14 +6,38 @@ import { fonts } from "@/lib/fonts";
 
 import "./globals.css";
 
-const appName = "みみちゃんの部屋";
+const appName = "Mimifuwa.cc";
+const description = "Kimimichi Shioiriのポートフォリオサイト";
 
 export const metadata: Metadata = {
   title: {
     template: `%s - ${appName}`,
     default: appName,
   },
-  description: "うさぎさんが生息しています",
+  description,
+
+  openGraph: {
+    title: appName,
+    description,
+    url: process.env.BASE_URL,
+    siteName: appName,
+    images: [
+      {
+        url: "https://mimifuwa.cc/ogp.png",
+        width: 1200,
+        height: 630,
+        alt: appName,
+      },
+    ],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: appName,
+    description,
+    images: ["https://mimifuwa.cc/ogp.png"],
+  },
 };
 
 export const viewport: Viewport = {
