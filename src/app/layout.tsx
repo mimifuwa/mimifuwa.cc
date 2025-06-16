@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import { fonts } from "@/lib/fonts";
 
 import "./globals.css";
@@ -53,14 +51,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ja"
-      className={`${fonts.map((font) => font.variable).join(" ")} bg-[url(/bg.png)] bg-[#BABABA]`}
-    >
-      <body className="text-slate-700 font-normal font-bold">
-        <Header />
+    <html lang="ja" className={`${fonts.map((font) => font.variable).join(" ")}`}>
+      <body className="text-slate-700 font-normal">
         <div>{children}</div>
-        <Footer />
       </body>
     </html>
   );
