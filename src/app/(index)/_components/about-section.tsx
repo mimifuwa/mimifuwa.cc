@@ -23,7 +23,7 @@ export function AboutSection() {
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-10">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 mb-8">
                 <img
-                  src="/icon.png"
+                  src="/icon.webp"
                   alt="mimifuwa"
                   className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-blue-100 shadow-md flex-shrink-0"
                   width={112}

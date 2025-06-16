@@ -35,7 +35,7 @@ export function HeroSection() {
       {/* Background image with blur */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/hero.png"
+          src="/hero.webp"
           alt=""
           className="w-full h-full object-cover blur-2xl opacity-60"
           style={{ objectPosition: "center" }}
@@ -52,7 +52,7 @@ export function HeroSection() {
         {/* Profile image */}
         <div className="mb-8 sm:mb-10">
           <img
-            src="/icon.png"
+            src="/icon.webp"
             alt="mimifuwa"
             className="w-28 h-28 sm:w-48 sm:h-48 mx-auto rounded-full border-6 border-white shadow-2xl hover:scale-110 transition-transform duration-500"
             width={144}
