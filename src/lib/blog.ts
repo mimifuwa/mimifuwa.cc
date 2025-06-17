@@ -75,20 +75,37 @@ export async function markdownToHtml(markdown: string): Promise<string> {
           (node: any) => !(node.type === "heading" && node.depth === 1)
         );
 
-        // Add IDs to headings
+        // Add IDs to headings with uniqueness check
+        const usedIds = new Set<string>();
+        let headingCounter = 0;
+
         tree.children.forEach((node: any) => {
           if (node.type === "heading" && node.children && node.children[0]) {
             const text = node.children[0].value || "";
-            const id = text
+            let id = text
               .toLowerCase()
               .replace(/[^\w\s-]/g, "")
               .replace(/\s+/g, "-")
               .replace(/-+/g, "-")
               .replace(/^-|-$/g, "");
 
+            // 空のIDの場合はデフォルト値を設定
+            if (!id) {
+              id = `heading-${++headingCounter}`;
+            }
+
+            // 重複するIDの場合は番号を付加
+            let uniqueId = id;
+            let counter = 1;
+            while (usedIds.has(uniqueId)) {
+              uniqueId = `${id}-${counter}`;
+              counter++;
+            }
+            usedIds.add(uniqueId);
+
             node.data = node.data || {};
             node.data.hProperties = node.data.hProperties || {};
-            node.data.hProperties.id = id;
+            node.data.hProperties.id = uniqueId;
           }
         });
       }
@@ -109,22 +126,37 @@ export function getAllSlugs(): string[] {
 export function extractHeadings(markdown: string): Heading[] {
   const headings: Heading[] = [];
   const lines = markdown.split("\n");
+  const usedIds = new Set<string>();
 
   for (const line of lines) {
     const match = line.match(/^(#{1,6})\s+(.+)$/);
     if (match) {
       const level = match[1].length;
       const text = match[2].trim();
-      const id = text
+      let id = text
         .toLowerCase()
         .replace(/[^\w\s-]/g, "")
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-")
         .replace(/^-|-$/g, "");
 
+      // 空のIDの場合はデフォルト値を設定
+      if (!id) {
+        id = `heading-${headings.length + 1}`;
+      }
+
+      // 重複するIDの場合は番号を付加
+      let uniqueId = id;
+      let counter = 1;
+      while (usedIds.has(uniqueId)) {
+        uniqueId = `${id}-${counter}`;
+        counter++;
+      }
+      usedIds.add(uniqueId);
+
       // h1は除外（記事タイトルなので）
       if (level > 1) {
-        headings.push({ id, text, level });
+        headings.push({ id: uniqueId, text, level });
       }
     }
   }

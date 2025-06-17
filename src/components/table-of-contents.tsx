@@ -69,8 +69,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
           目次
         </h3>
         <ul className="space-y-2">
-          {headings.map((heading) => (
-            <li key={heading.id}>
+          {headings.map((heading, index) => (
+            <li key={`${heading.id}-${index}`}>
               <button
                 onClick={() => scrollToHeading(heading.id)}
                 className={`block w-full text-left transition-all duration-200 rounded-r-lg px-3 py-2 text-sm hover:bg-blue-50 hover:text-blue-700 ${
