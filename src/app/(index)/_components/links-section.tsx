@@ -11,6 +11,11 @@ interface LinkItem {
 
 const links: LinkItem[] = [
   {
+    name: "e_chan1007",
+    url: "https://e-chan.me",
+    description: "てるてる坊主の人。サイト更新してね〜",
+  },
+  {
     name: "kanaru.me",
     url: "https://kanaru.me",
     description: "リロードしないとまともに表示されないサイト。早く直して",
