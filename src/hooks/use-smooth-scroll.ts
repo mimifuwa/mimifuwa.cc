@@ -3,12 +3,23 @@ import { useCallback } from "react";
 export const useSmoothScroll = () => {
   const scrollToElement = useCallback((elementId: string) => {
     const element = document.getElementById(elementId);
-    if (element) {
-      // ヘッダーの高さ（64px）+ マージン（20px）
-      const yOffset = -84;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
+    if (!element) {
+      console.warn(`要素が見つかりません: ${elementId}`);
+      return;
     }
+
+    // ヘッダーの高さを考慮したオフセット
+    const headerHeight = 80;
+    const additionalOffset = 20;
+    const yOffset = -(headerHeight + additionalOffset);
+
+    const elementTop = element.getBoundingClientRect().top;
+    const targetY = window.pageYOffset + elementTop + yOffset;
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: "smooth",
+    });
   }, []);
 
   return { scrollToElement };
