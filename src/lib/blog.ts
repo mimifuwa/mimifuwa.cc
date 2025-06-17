@@ -60,7 +60,19 @@ export function getPostBySlug(slug: string): BlogPost | null {
 }
 
 export async function markdownToHtml(markdown: string): Promise<string> {
-  const result = await remark().use(html, { sanitize: false }).process(markdown);
+  const result = await remark()
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    .use(() => (tree: any) => {
+      // Remove h1 headings from the markdown AST
+      if (tree.children) {
+        tree.children = tree.children.filter(
+          (node: any) => !(node.type === "heading" && node.depth === 1)
+        );
+      }
+    })
+    .use(html, { sanitize: false })
+    .process(markdown);
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   return result.toString();
 }
 
