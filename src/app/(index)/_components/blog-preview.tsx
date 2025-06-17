@@ -16,7 +16,7 @@ export function BlogPreviewSection() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
             📝 最新のブログ記事
           </h2>
-          <p className="text-gray-600 text-lg sm:text-xl">技術やプロジェクトについて書いています</p>
+          <p className="text-gray-600 text-lg sm:text-xl">主に趣味について書いています</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10 sm:mb-12">

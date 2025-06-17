@@ -5,13 +5,13 @@ import { works } from "../data";
 
 export function ProjectsSection() {
   return (
-    <section className="py-16 sm:py-24 bg-white">
+    <section id="projects-section" className="py-16 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
             🚀 プロジェクト
           </h2>
-          <p className="text-gray-600 text-lg sm:text-xl">これまでに作ってきたものの一部です</p>
+          <p className="text-gray-600 text-lg sm:text-xl">作成したアプリ・サービスなど</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10 sm:mb-12">

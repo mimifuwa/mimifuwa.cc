@@ -82,7 +82,7 @@ export function HeroSection() {
         <p className="text-sm text-gray-500 mb-10 sm:mb-16 sm:text-lg max-w-3xl mx-auto leading-relaxed">
           電気通信大学でコンピュータサイエンスを学びながら、
           <br />
-          Web技術を使って面白いものを作っています。
+          Webアプリケーションを中心に開発しています。
         </p>
 
         {/* Social links */}

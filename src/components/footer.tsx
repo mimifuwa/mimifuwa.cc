@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaGithub, FaHeart, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaTwitter } from "react-icons/fa";
 import { SiZenn } from "react-icons/si";
 
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
@@ -17,7 +17,7 @@ export default function Footer() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">mimifuwa.cc</h3>
             <p className="text-gray-400 leading-relaxed text-base sm:text-lg">
               電気通信大学でコンピュータサイエンスを学びながら、
-              Web技術を使って面白いものを作っています。
+              Webアプリケーションを中心に開発しています。
             </p>
           </div>
 
@@ -34,6 +34,14 @@ export default function Footer() {
                 </button>
               </li>
               <li>
+                <button
+                  onClick={() => scrollToElement("projects-section")}
+                  className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg text-left"
+                >
+                  Projects
+                </button>
+              </li>
+              <li>
                 <Link
                   href="/blogs"
                   className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg"
@@ -41,32 +49,12 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="https://github.com/mimifuwa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://zenn.dev/mimifuwa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg"
-                >
-                  Articles
-                </Link>
-              </li>
             </ul>
           </div>
 
           {/* Social Links */}
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Connect</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Sosial</h3>
             <div className="flex gap-4 sm:gap-6">
               <Link
                 href="https://github.com/mimifuwa"
@@ -104,9 +92,7 @@ export default function Footer() {
           <p className="text-gray-400 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
             <span>© 2025 mimifuwa.cc</span>
             <span className="hidden sm:inline">-</span>
-            <span className="flex items-center gap-1 sm:gap-2">
-              Made with <FaHeart className="text-red-500" /> and Next.js
-            </span>
+            <span className="flex items-center gap-1 sm:gap-2">Made with and Next.js</span>
           </p>
         </div>
       </div>

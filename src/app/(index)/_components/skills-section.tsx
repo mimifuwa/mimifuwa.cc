@@ -16,7 +16,7 @@ export function SkillsSection() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
             ✨ スキル & ツール
           </h2>
-          <p className="text-gray-600 text-lg sm:text-xl">普段使っている技術スタックです</p>
+          <p className="text-gray-600 text-lg sm:text-xl">普段使っている技術スタック</p>
         </div>
 
         {/* Skills by category */}

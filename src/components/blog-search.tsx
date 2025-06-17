@@ -90,7 +90,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
             📝 ブログ
           </h2>
-          <p className="text-gray-600 text-lg sm:text-xl">技術やプロジェクトについて書いています</p>
+          <p className="text-gray-600 text-lg sm:text-xl">主に趣味について書いています</p>
         </div>
 
         {/* 検索とフィルターコントロール */}
