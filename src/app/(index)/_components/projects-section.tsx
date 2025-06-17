@@ -27,7 +27,6 @@ export function ProjectsSection() {
                   alt={work.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
               </div>
 
               {/* Project content */}
