@@ -54,7 +54,7 @@ export function HeroSection() {
           <img
             src="/icon.webp"
             alt="mimifuwa"
-            className="w-28 h-28 sm:w-48 sm:h-48 mx-auto rounded-full border-6 border-white shadow-2xl hover:scale-110 transition-transform duration-500"
+            className="w-48 h-48 sm:w-48 sm:h-48 mx-auto rounded-full border-6 border-white shadow-2xl hover:scale-110 transition-transform duration-500"
             width={144}
             height={144}
           />

@@ -31,10 +31,10 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <div className="min-h-screen pb-12 bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-4">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-0 sm:px-4 py-8">
         <Link
           href="/blogs"
-          className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-10 transition-all duration-200 hover:gap-3"
+          className="group inline-flex items-center mx-4 sm:mx-0 gap-2 text-blue-600 hover:text-blue-700 mb-10 transition-all duration-200 hover:gap-3"
         >
           <svg
             className="w-4 h-4 transition-transform group-hover:-translate-x-1"
@@ -53,14 +53,9 @@ export default async function BlogPost({ params }: Props) {
         </Link>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* 目次 - スマホでは上に表示、デスクトップでは右に表示 */}
-          <div className="lg:hidden">
-            <TableOfContents headings={headings} />
-          </div>
-
           {/* メインコンテンツ */}
-          <article className="flex-1 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-            <header className="px-8 py-10 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+          <article className="flex-1 sm:bg-white sm:rounded-2xl sm:shadow-lg sm:border border-gray-100 overflow-hidden">
+            <header className="px-4 sm:px-8 py-6 sm:py-10 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
               <div className="mb-6">
                 <time className="inline-flex items-center gap-2 text-gray-600 text-sm font-medium bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-200">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +99,12 @@ export default async function BlogPost({ params }: Props) {
               )}
             </header>
 
-            <div className="px-8 py-10">
+            {/* 目次 - スマホでは上に表示、デスクトップでは右に表示 */}
+            <div className="lg:hidden mt-6 mx-4">
+              <TableOfContents headings={headings} />
+            </div>
+
+            <div className="px-4 sm:px-8 py-6 sm:py-10">
               <CodeBlock content={contentHtml} />
             </div>
           </article>
