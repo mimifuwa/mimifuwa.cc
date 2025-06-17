@@ -31,6 +31,11 @@ const links: LinkItem[] = [
     description: "令和最新版デザイン。ブログシステム待ってます。",
   },
   {
+    name: "SHINNの研究室",
+    url: "https://shinn-chan.net/",
+    description: "電通大の数学徒。記事書いてね〜",
+  },
+  {
     name: "かとうのHomePage",
     url: "https://kat0h.com/",
     description: "古き良きデザイン。更新待ってます。",
@@ -39,6 +44,11 @@ const links: LinkItem[] = [
     name: "はんかくくんのページ",
     url: "https://kqiita.github.io/",
     description: "きーたちゃん♡",
+  },
+  {
+    name: "TABI.PROJECT",
+    url: "https://tabitostudio.github.io/",
+    description: "ロボット作ってる強い人。",
   },
   {
     name: "ゆいのページ",
