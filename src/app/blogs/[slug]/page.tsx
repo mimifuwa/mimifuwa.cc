@@ -27,42 +27,81 @@ export default async function BlogPost({ params }: Props) {
   const contentHtml = await markdownToHtml(post.content);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <Link href="/blogs" className="text-blue-600 hover:text-blue-800 mb-8 inline-block">
-        ← ブログ一覧に戻る
-      </Link>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <Link
+          href="/blogs"
+          className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-10 transition-all duration-200 hover:gap-3"
+        >
+          <svg
+            className="w-4 h-4 transition-transform group-hover:-translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          ブログ一覧に戻る
+        </Link>
 
-      <article>
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-
-          <div className="text-gray-500 mb-4">
-            {new Date(post.date).toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </div>
-
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full"
-                >
-                  #{tag}
-                </span>
-              ))}
+        <article className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <header className="px-8 py-10 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+            <div className="mb-6">
+              <time className="inline-flex items-center gap-2 text-gray-600 text-sm font-medium bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-200">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                {new Date(post.date).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
             </div>
-          )}
-        </header>
 
-        <div
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
-      </article>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              {post.title}
+            </h1>
+
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-sm font-medium rounded-full shadow-sm hover:shadow-md transition-shadow"
+                  >
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </header>
+
+          <div className="px-8 py-10">
+            <div
+              className="prose prose-lg prose-slate max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-blue-700 prose-strong:text-gray-900 prose-code:text-pink-600 prose-code:bg-pink-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-200 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-ul:my-6 prose-ol:my-6 prose-li:my-2"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+            />
+          </div>
+        </article>
+      </div>
     </div>
   );
 }
