@@ -13,125 +13,69 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
   const { scrollToElement } = useSmoothScroll();
 
-  // 初期化時にアクティブな見出しを設定
   useEffect(() => {
-    if (headings.length > 0) {
-      const handleInitialScroll = () => {
-        const headingElements = headings
-          .map((heading) => document.getElementById(heading.id))
-          .filter(Boolean) as HTMLElement[];
+    if (headings.length === 0) return;
 
-        const scrollPosition = window.scrollY + 100;
-
-        let activeHeading = headingElements[0];
-        for (const element of headingElements) {
-          if (element.offsetTop <= scrollPosition) {
-            activeHeading = element;
-          } else {
-            break;
-          }
-        }
-
-        if (activeHeading) {
-          setActiveId(activeHeading.id);
-        }
-      };
-
-      // DOM が準備できてから実行
-      const timer = setTimeout(handleInitialScroll, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [headings]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // 現在表示されている見出しを取得
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-
-        if (visibleEntries.length > 0) {
-          // 最も上に位置する見出しを選択
-          const topEntry = visibleEntries.reduce((prev, current) => {
-            return prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current;
-          });
-          setActiveId(topEntry.target.id);
-        } else {
-          // どの見出しも表示されていない場合、スクロール位置から最適な見出しを推測
-          const headingElements = headings
-            .map((heading) => document.getElementById(heading.id))
-            .filter(Boolean) as HTMLElement[];
-
-          const scrollPosition = window.scrollY + window.innerHeight * 0.3;
-
-          let activeHeading = headingElements[0];
-          for (const element of headingElements) {
-            if (element.offsetTop <= scrollPosition) {
-              activeHeading = element;
-            } else {
-              break;
-            }
-          }
-
-          if (activeHeading) {
-            setActiveId(activeHeading.id);
-          }
-        }
-      },
-      {
-        rootMargin: "-10% 0% -60% 0%",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    const handleScroll = () => {
-      // スクロール時の追加チェック
+    const updateActiveHeading = () => {
+      // 見出し要素を取得し、存在しないものは除外
       const headingElements = headings
-        .map((heading) => document.getElementById(heading.id))
-        .filter(Boolean) as HTMLElement[];
+        .map((heading) => {
+          const element = document.getElementById(heading.id);
+          return element ? { ...heading, element } : null;
+        })
+        .filter(Boolean) as Array<Heading & { element: HTMLElement }>;
 
-      const scrollPosition = window.scrollY + 100;
+      if (headingElements.length === 0) {
+        console.warn(
+          "見出し要素が見つかりません:",
+          headings.map((h) => h.id)
+        );
+        return;
+      }
 
+      const scrollPosition = window.scrollY + 120; // ヘッダー高さを考慮
+
+      // 現在のスクロール位置より上にある見出しの中で最も下にあるものを見つける
       let activeHeading = headingElements[0];
-      for (const element of headingElements) {
-        if (element.offsetTop <= scrollPosition) {
-          activeHeading = element;
+
+      for (const headingData of headingElements) {
+        const elementTop = headingData.element.offsetTop;
+        if (elementTop <= scrollPosition) {
+          activeHeading = headingData;
         } else {
           break;
         }
       }
 
-      if (activeHeading) {
+      if (activeHeading.id !== activeId) {
         setActiveId(activeHeading.id);
       }
     };
 
-    // 要素の監視を開始
-    headings.forEach((heading) => {
-      const element = document.getElementById(heading.id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    // DOM読み込み完了後に実行
+    const timer = setTimeout(() => {
+      updateActiveHeading();
+    }, 200);
 
-    // スクロールイベントリスナーを追加（throttling付き）
+    // スクロールイベントリスナー（throttled）
     let ticking = false;
-    const throttledHandleScroll = () => {
+    const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          handleScroll();
+          updateActiveHeading();
           ticking = false;
         });
         ticking = true;
       }
     };
 
-    window.addEventListener("scroll", throttledHandleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", throttledHandleScroll);
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [headings]);
+  }, [headings, activeId]);
 
   const scrollToHeading = (id: string) => {
     scrollToElement(id);
