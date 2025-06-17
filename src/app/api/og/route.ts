@@ -165,31 +165,17 @@ export async function GET(request: NextRequest) {
           ]
         ),
         // Footer
-        createElement(
-          "div",
-          {
-            style: {
-              position: "absolute",
-              bottom: "30px",
-              right: "30px",
-              display: "flex",
-              alignItems: "center",
-              color: "rgba(255, 255, 255, 0.8)",
-              fontSize: "16px",
-            },
+        createElement("div", {
+          style: {
+            position: "absolute",
+            bottom: "30px",
+            right: "30px",
+            display: "flex",
+            alignItems: "center",
+            color: "rgba(255, 255, 255, 0.8)",
+            fontSize: "16px",
           },
-          createElement(
-            "div",
-            {
-              style: {
-                background: "rgba(255, 255, 255, 0.1)",
-                borderRadius: "8px",
-                padding: "8px 16px",
-              },
-            },
-            "ブログ記事"
-          )
-        ),
+        }),
       ]
     ),
     {
@@ -212,9 +198,11 @@ export async function GET(request: NextRequest) {
     }
   );
 
-  return new Response(svg, {
+  const sharp = (await import("sharp")).default;
+  const pngBuffer = await sharp(Buffer.from(svg)).png().toBuffer();
+  return new Response(pngBuffer, {
     headers: {
-      "Content-Type": "image/svg+xml",
+      "Content-Type": "image/png",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });

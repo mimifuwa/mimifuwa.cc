@@ -23,6 +23,7 @@
     "remark-html": "^16.0.1",
     "rss-parser": "^3.13.0",
     "satori": "^0.15.2",
+    "sharp": "^0.34.2",
     "swr": "^2.3.3"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sharp": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "eslint": "^9",
