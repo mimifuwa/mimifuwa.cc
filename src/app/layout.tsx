@@ -5,7 +5,7 @@ import { fonts } from "@/lib/fonts";
 
 import "./globals.css";
 
-const appName = "Mimifuwa.cc";
+const appName = "mimifuwa.cc";
 const description = "Kimimichi Shioiriのポートフォリオサイト";
 
 export const metadata: Metadata = {
