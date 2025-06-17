@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { fonts } from "@/lib/fonts";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body className="text-slate-700 font-normal">
         <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
