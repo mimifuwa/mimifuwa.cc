@@ -16,6 +16,12 @@ export interface BlogPost {
   content: string;
 }
 
+export interface Heading {
+  id: string;
+  text: string;
+  level: number;
+}
+
 export function getAllPosts(): BlogPost[] {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames
@@ -63,11 +69,28 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark()
     /* eslint-disable @typescript-eslint/no-explicit-any */
     .use(() => (tree: any) => {
-      // Remove h1 headings from the markdown AST
+      // Remove h1 headings and add IDs to remaining headings
       if (tree.children) {
         tree.children = tree.children.filter(
           (node: any) => !(node.type === "heading" && node.depth === 1)
         );
+
+        // Add IDs to headings
+        tree.children.forEach((node: any) => {
+          if (node.type === "heading" && node.children && node.children[0]) {
+            const text = node.children[0].value || "";
+            const id = text
+              .toLowerCase()
+              .replace(/[^\w\s-]/g, "")
+              .replace(/\s+/g, "-")
+              .replace(/-+/g, "-")
+              .replace(/^-|-$/g, "");
+
+            node.data = node.data || {};
+            node.data.hProperties = node.data.hProperties || {};
+            node.data.hProperties.id = id;
+          }
+        });
       }
     })
     .use(html, { sanitize: false })
@@ -81,4 +104,30 @@ export function getAllSlugs(): string[] {
   return fileNames
     .filter((fileName) => fileName.endsWith(".md"))
     .map((fileName) => fileName.replace(/\.md$/, ""));
+}
+
+export function extractHeadings(markdown: string): Heading[] {
+  const headings: Heading[] = [];
+  const lines = markdown.split("\n");
+
+  for (const line of lines) {
+    const match = line.match(/^(#{1,6})\s+(.+)$/);
+    if (match) {
+      const level = match[1].length;
+      const text = match[2].trim();
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+      // h1は除外（記事タイトルなので）
+      if (level > 1) {
+        headings.push({ id, text, level });
+      }
+    }
+  }
+
+  return headings;
 }
