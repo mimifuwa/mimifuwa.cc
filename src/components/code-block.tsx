@@ -28,8 +28,8 @@ export default function CodeBlock({ content }: CodeBlockProps) {
       codeBlocks.forEach((block, index) => {
         // 明示的にスタイルを設定
         const codeElement = block as HTMLElement;
-        codeElement.style.background = "#0d1117";
-        codeElement.style.color = "#e6edf3";
+        codeElement.style.background = "#1e293b";
+        codeElement.style.color = "#f1f5f9";
         codeElement.style.padding = "1.5rem";
         codeElement.style.borderRadius = "0.75rem";
         codeElement.style.fontSize = "0.875rem";
@@ -40,10 +40,10 @@ export default function CodeBlock({ content }: CodeBlockProps) {
         // preタグのスタイルも設定
         const pre = block.parentElement as HTMLElement;
         if (pre) {
-          pre.style.background = "#0d1117";
+          pre.style.background = "#1e293b";
           pre.style.padding = "0";
           pre.style.margin = "2rem 0";
-          pre.style.border = "1px solid #30363d";
+          pre.style.border = "1px solid #475569";
           pre.style.borderRadius = "0.75rem";
           pre.style.overflow = "hidden";
         }
