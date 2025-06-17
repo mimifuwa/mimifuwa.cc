@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import CodeBlock from "@/components/code-block";
 import { getAllSlugs, getPostBySlug, markdownToHtml } from "@/lib/blog";
 
 interface Props {
@@ -95,10 +96,7 @@ export default async function BlogPost({ params }: Props) {
           </header>
 
           <div className="px-8 py-10">
-            <div
-              className="prose prose-lg prose-slate max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-blue-700 prose-strong:text-gray-900 prose-code:text-pink-600 prose-code:bg-pink-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-200 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-ul:my-6 prose-ol:my-6 prose-li:my-2"
-              dangerouslySetInnerHTML={{ __html: contentHtml }}
-            />
+            <CodeBlock content={contentHtml} />
           </div>
         </article>
       </div>
