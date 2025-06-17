@@ -6,7 +6,7 @@ import { fonts } from "@/lib/fonts";
 
 import "./globals.css";
 
-const appName = "Mimifuwa.cc";
+const appName = "mimifuwa.cc";
 const description = "Kimimichi Shioiriのポートフォリオサイト";
 
 export const metadata: Metadata = {
@@ -53,13 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ja"
-      className={`${fonts.map((font) => font.variable).join(" ")} bg-[url(/bg.png)] bg-[#BABABA]`}
-    >
-      <body className="text-slate-700 font-normal font-bold">
+    <html lang="ja" className={`${fonts.map((font) => font.variable).join(" ")}`}>
+      <body className="text-slate-700 font-normal">
         <Header />
-        <div>{children}</div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
