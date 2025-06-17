@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { FaChevronDown, FaGithub, FaTwitter } from "react-icons/fa";
 import { SiZenn } from "react-icons/si";
 
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+
 const roles = ["Web開発", "大学生", "神椿観測者"];
 
 export function HeroSection() {
   const [currentRole, setCurrentRole] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const { scrollToElement } = useSmoothScroll();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,10 +27,7 @@ export function HeroSection() {
   }, []);
 
   const scrollToContent = () => {
-    const aboutSection = document.getElementById("about-section");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToElement("about-section");
   };
 
   return (

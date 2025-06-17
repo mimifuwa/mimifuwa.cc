@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { FaGithub, FaHeart, FaTwitter } from "react-icons/fa";
 import { SiZenn } from "react-icons/si";
 
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+
 export default function Footer() {
+  const { scrollToElement } = useSmoothScroll();
   return (
     <footer className="bg-gray-900 text-white py-12 sm:py-20">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
@@ -21,12 +26,12 @@ export default function Footer() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <Link
-                  href="#about-section"
-                  className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg"
+                <button
+                  onClick={() => scrollToElement("about-section")}
+                  className="text-gray-400 hover:text-white transition-colors text-base sm:text-lg text-left"
                 >
                   About
-                </Link>
+                </button>
               </li>
               <li>
                 <Link

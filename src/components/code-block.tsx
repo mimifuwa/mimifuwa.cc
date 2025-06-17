@@ -56,6 +56,7 @@ export default function CodeBlock({ content }: CodeBlockProps) {
           const blockId = `code-block-${index}`;
           copyButton.className =
             "copy-button absolute top-3 right-3 p-2 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-md text-sm transition-colors duration-200 opacity-0 group-hover:opacity-100";
+          copyButton.style.zIndex = "var(--z-dropdown)";
           copyButton.innerHTML =
             copiedId === blockId
               ? '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'

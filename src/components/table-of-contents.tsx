@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import type { Heading } from "@/lib/blog";
 
 interface TableOfContentsProps {
@@ -10,22 +11,101 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
+  const { scrollToElement } = useSmoothScroll();
+
+  // 初期化時にアクティブな見出しを設定
+  useEffect(() => {
+    if (headings.length > 0) {
+      const handleInitialScroll = () => {
+        const headingElements = headings
+          .map((heading) => document.getElementById(heading.id))
+          .filter(Boolean) as HTMLElement[];
+
+        const scrollPosition = window.scrollY + 100;
+
+        let activeHeading = headingElements[0];
+        for (const element of headingElements) {
+          if (element.offsetTop <= scrollPosition) {
+            activeHeading = element;
+          } else {
+            break;
+          }
+        }
+
+        if (activeHeading) {
+          setActiveId(activeHeading.id);
+        }
+      };
+
+      // DOM が準備できてから実行
+      const timer = setTimeout(handleInitialScroll, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [headings]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+        // 現在表示されている見出しを取得
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+        if (visibleEntries.length > 0) {
+          // 最も上に位置する見出しを選択
+          const topEntry = visibleEntries.reduce((prev, current) => {
+            return prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current;
+          });
+          setActiveId(topEntry.target.id);
+        } else {
+          // どの見出しも表示されていない場合、スクロール位置から最適な見出しを推測
+          const headingElements = headings
+            .map((heading) => document.getElementById(heading.id))
+            .filter(Boolean) as HTMLElement[];
+
+          const scrollPosition = window.scrollY + window.innerHeight * 0.3;
+
+          let activeHeading = headingElements[0];
+          for (const element of headingElements) {
+            if (element.offsetTop <= scrollPosition) {
+              activeHeading = element;
+            } else {
+              break;
+            }
           }
-        });
+
+          if (activeHeading) {
+            setActiveId(activeHeading.id);
+          }
+        }
       },
       {
-        rootMargin: "-20% 0% -35% 0%",
-        threshold: 0,
+        rootMargin: "-10% 0% -60% 0%",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
 
+    const handleScroll = () => {
+      // スクロール時の追加チェック
+      const headingElements = headings
+        .map((heading) => document.getElementById(heading.id))
+        .filter(Boolean) as HTMLElement[];
+
+      const scrollPosition = window.scrollY + 100;
+
+      let activeHeading = headingElements[0];
+      for (const element of headingElements) {
+        if (element.offsetTop <= scrollPosition) {
+          activeHeading = element;
+        } else {
+          break;
+        }
+      }
+
+      if (activeHeading) {
+        setActiveId(activeHeading.id);
+      }
+    };
+
+    // 要素の監視を開始
     headings.forEach((heading) => {
       const element = document.getElementById(heading.id);
       if (element) {
@@ -33,16 +113,28 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       }
     });
 
-    return () => observer.disconnect();
+    // スクロールイベントリスナーを追加（throttling付き）
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", throttledHandleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", throttledHandleScroll);
+    };
   }, [headings]);
 
   const scrollToHeading = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const yOffset = -80;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
+    scrollToElement(id);
   };
 
   if (headings.length === 0) {
@@ -50,7 +142,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   }
 
   return (
-    <nav className="sticky top-8">
+    <nav className="sticky top-24" style={{ zIndex: "var(--z-sticky)" }}>
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <svg
