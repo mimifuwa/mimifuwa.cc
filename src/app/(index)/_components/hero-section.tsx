@@ -7,7 +7,7 @@ import { SiZenn } from "react-icons/si";
 
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
-const roles = ["Web開発", "大学生", "神椿観測者"];
+const roles = ["Web開発", "大学生", "観測者ヰ組"];
 
 export function HeroSection() {
   const [currentRole, setCurrentRole] = useState(0);

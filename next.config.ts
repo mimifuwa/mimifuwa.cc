@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     domains: ["camo.githubusercontent.com", "localhost"],
     dangerouslyAllowSVG: true,
   },
-  output: "export",
 };
 
 export default nextConfig;
