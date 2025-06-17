@@ -31,7 +31,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="flex items-center justify-center relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-6 py-12 sm:px-8 sm:py-20">
+    <section className="flex items-center justify-center relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-6 py-12 sm:px-8 sm:py-20 min-h-screen">
       {/* Background image with blur */}
       <div className="absolute inset-0 -z-10">
         <img

@@ -84,7 +84,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-4">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">

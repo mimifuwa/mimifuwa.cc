@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
+import Header from "@/components/header";
 import { fonts } from "@/lib/fonts";
 
 import "./globals.css";
@@ -53,7 +54,8 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${fonts.map((font) => font.variable).join(" ")}`}>
       <body className="text-slate-700 font-normal">
-        <div>{children}</div>
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
