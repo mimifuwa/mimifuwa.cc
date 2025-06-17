@@ -4,7 +4,7 @@ import { SiZenn } from "react-icons/si";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white mt-12 py-12 sm:py-20">
+    <footer className="bg-gray-900 text-white py-12 sm:py-20">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* About */}
