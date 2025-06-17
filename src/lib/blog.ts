@@ -3,6 +3,7 @@ import path from "path";
 
 import matter from "gray-matter";
 import { remark } from "remark";
+import remarkGfm from "remark-gfm";
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "src/contents/blogs");
@@ -67,6 +68,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
 export async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark()
+    .use(remarkGfm)
     /* eslint-disable @typescript-eslint/no-explicit-any */
     .use(() => (tree: any) => {
       // Remove h1 headings and add IDs to remaining headings

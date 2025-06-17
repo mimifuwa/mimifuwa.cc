@@ -23,6 +23,50 @@ export default function CodeBlock({ content }: CodeBlockProps) {
 
   useEffect(() => {
     if (contentRef.current) {
+      // URLをリンクカードに変換
+      const urlRegex =
+        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
+      const walker = document.createTreeWalker(contentRef.current, NodeFilter.SHOW_TEXT, null);
+
+      const textNodes: Text[] = [];
+      let node;
+      while ((node = walker.nextNode())) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+          textNodes.push(node as Text);
+        }
+      }
+
+      textNodes.forEach((textNode) => {
+        const text = textNode.textContent || "";
+        if (urlRegex.test(text)) {
+          const parent = textNode.parentNode;
+          if (parent && parent.nodeName !== "A" && parent.nodeName !== "CODE") {
+            const newHTML = text.replace(urlRegex, (url) => {
+              const domain = new URL(url).hostname.replace("www.", "");
+              return `<div class="link-card my-6 p-4 border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="block no-underline">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="text-sm font-medium text-gray-900 truncate">${domain}</div>
+                      <div class="text-xs text-gray-500 truncate">${url}</div>
+                    </div>
+                  </div>
+                </a>
+              </div>`;
+            });
+
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = newHTML;
+            parent.replaceChild(wrapper, textNode);
+          }
+        }
+      });
+
       // すべてのコードブロックにシンタックスハイライトを適用
       const codeBlocks = contentRef.current.querySelectorAll("pre code");
       codeBlocks.forEach((block, index) => {
@@ -91,7 +135,7 @@ export default function CodeBlock({ content }: CodeBlockProps) {
   return (
     <div
       ref={contentRef}
-      className="prose prose-lg prose-slate max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-blue-700 prose-strong:text-gray-900 prose-code:text-pink-600 prose-code:bg-pink-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-200 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-ul:my-6 prose-ol:my-6 prose-li:my-2"
+      className="prose prose-lg prose-slate max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-5 prose-h4:mb-2 prose-h5:text-base prose-h5:mt-4 prose-h5:mb-2 prose-h6:text-sm prose-h6:mt-4 prose-h6:mb-2 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-blue-700 prose-strong:text-gray-900 prose-em:text-gray-700 prose-em:italic prose-del:text-gray-500 prose-del:line-through prose-code:text-pink-600 prose-code:bg-pink-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-200 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:italic prose-ul:my-6 prose-ol:my-6 prose-li:my-2 prose-ul:list-disc prose-ol:list-decimal prose-ul>li:marker:text-blue-500 prose-ol>li:marker:text-blue-500 prose-hr:border-gray-300 prose-hr:my-8 prose-table:border-collapse prose-table:border prose-table:border-gray-300 prose-th:border prose-th:border-gray-300 prose-th:bg-gray-50 prose-th:px-4 prose-th:py-2 prose-th:font-semibold prose-td:border prose-td:border-gray-300 prose-td:px-4 prose-td:py-2"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
