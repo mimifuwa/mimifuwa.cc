@@ -2,6 +2,9 @@
 
 import hljs from "highlight.js";
 import { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+
+import LinkCard from "./link-card";
 
 interface CodeBlockProps {
   content: string;
@@ -23,47 +26,13 @@ export default function CodeBlock({ content }: CodeBlockProps) {
 
   useEffect(() => {
     if (contentRef.current) {
-      // URLをリンクカードに変換
-      const urlRegex =
-        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
-      const walker = document.createTreeWalker(contentRef.current, NodeFilter.SHOW_TEXT, null);
-
-      const textNodes: Text[] = [];
-      let node;
-      while ((node = walker.nextNode())) {
-        if (node.nodeType === Node.TEXT_NODE && node.textContent) {
-          textNodes.push(node as Text);
-        }
-      }
-
-      textNodes.forEach((textNode) => {
-        const text = textNode.textContent || "";
-        if (urlRegex.test(text)) {
-          const parent = textNode.parentNode;
-          if (parent && parent.nodeName !== "A" && parent.nodeName !== "CODE") {
-            const newHTML = text.replace(urlRegex, (url) => {
-              const domain = new URL(url).hostname.replace("www.", "");
-              return `<div class="link-card my-6 p-4 border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-                <a href="${url}" target="_blank" rel="noopener noreferrer" class="block no-underline">
-                  <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                      </svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <div class="text-sm font-medium text-gray-900 truncate">${domain}</div>
-                      <div class="text-xs text-gray-500 truncate">${url}</div>
-                    </div>
-                  </div>
-                </a>
-              </div>`;
-            });
-
-            const wrapper = document.createElement("div");
-            wrapper.innerHTML = newHTML;
-            parent.replaceChild(wrapper, textNode);
-          }
+      // LinkCardを処理
+      const linkCardElements = contentRef.current.querySelectorAll("[data-link-card-url]");
+      linkCardElements.forEach((element) => {
+        const url = element.getAttribute("data-link-card-url");
+        if (url && element.innerHTML === "") {
+          const root = createRoot(element);
+          root.render(<LinkCard url={url} />);
         }
       });
 
