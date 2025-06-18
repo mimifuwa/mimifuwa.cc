@@ -60,11 +60,11 @@ const timelineData: TimelineEvent[] = [
 function Timeline() {
   return (
     <div className="relative pl-6">
-      <div className="absolute left-3.5 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+      <div className="absolute left-2.5 top-0 bottom-0 w-0.5 bg-blue-200"></div>
       <div className="space-y-8">
         {timelineData.map((event, index) => (
           <div key={index} className="relative">
-            <div className="absolute -left-[25px] w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-md transform translate-x-1/2"></div>
+            <div className="absolute -left-[29px] w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-md transform translate-x-1/2"></div>
             <div className="pl-2">
               <div className="mb-2">
                 <span className="text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-md inline-block">
