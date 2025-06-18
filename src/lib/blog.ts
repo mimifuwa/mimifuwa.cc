@@ -71,8 +71,30 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkGfm)
     /* eslint-disable @typescript-eslint/no-explicit-any */
     .use(() => (tree: any) => {
-      // Remove h1 headings and add IDs to remaining headings
+      // Replace standalone URLs with LinkCard components
       if (tree.children) {
+        const processNode = (node: any) => {
+          if (node.type === "text") {
+            const urlRegex = /^https?:\/\/[^\s]+$/;
+            if (urlRegex.test(node.value.trim())) {
+              const url = node.value.trim();
+              return {
+                type: "html",
+                value: `<link-card url="${url}"></link-card>`,
+              };
+            }
+          }
+
+          if (node.children) {
+            node.children = node.children.map(processNode);
+          }
+
+          return node;
+        };
+
+        tree.children = tree.children.map(processNode);
+
+        // Remove h1 headings and add IDs to remaining headings
         tree.children = tree.children.filter(
           (node: any) => !(node.type === "heading" && node.depth === 1)
         );
@@ -100,7 +122,15 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(html, { sanitize: false })
     .process(markdown);
   /* eslint-enable @typescript-eslint/no-explicit-any */
-  return result.toString();
+
+  // Replace link-card custom elements with React components
+  let htmlString = result.toString();
+  htmlString = htmlString.replace(
+    /<link-card url="([^"]+)"><\/link-card>/g,
+    '<div data-link-card-url="$1"></div>'
+  );
+
+  return htmlString;
 }
 
 export function getAllSlugs(): string[] {
