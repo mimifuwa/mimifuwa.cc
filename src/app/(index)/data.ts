@@ -20,6 +20,13 @@ export const works = [
     url: "https://74th.chofusai.jp",
     image: "/images/works/chofusai.png",
   },
+  {
+    title: "神椿市市民票ジェネレーター",
+    description:
+      "ゲーム「神椿市建設中。REGENERATE」の魔女の娘たちが持っている市民票を自分用にカスタマイズして生成できるツールです。",
+    url: "https://kamitsubaki-cert.mimifuwa.cc",
+    image: "https://kamitsubaki-cert.mimifuwa.cc/ogp.png",
+  },
 ];
 
 export const skills = {
