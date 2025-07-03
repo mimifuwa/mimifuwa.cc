@@ -27,6 +27,14 @@ export const works = [
     url: "https://kamitsubaki-cert.mimifuwa.cc",
     image: "https://kamitsubaki-cert.mimifuwa.cc/ogp.png",
   },
+  {
+    title: "Enhanced NowPlaying",
+    description:
+      "NowPlayingのX(旧Twitter)への投稿をおしゃれにするツールです。ブラウザの拡張機能として動作します。",
+    url: "https://github.com/mimifuwa/enhanced-nowplaying",
+    image:
+      "https://nowplaying.mimifuwa.cc/api/nowplaying/?url=https%3A%2F%2Fmusic.youtube.com%2Fwatch%3Fv%3D_sieGos2MAo",
+  },
 ];
 
 export const skills = {
