@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
@@ -57,6 +58,7 @@ export default function RootLayout({
       <body className="text-slate-700 font-normal">
         <Header />
         <main>{children}</main>
+        <GoogleAnalytics gaId="G-85K159T0NC" />
         <Footer />
       </body>
     </html>
